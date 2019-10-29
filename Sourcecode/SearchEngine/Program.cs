@@ -10,33 +10,64 @@ namespace ConsoleApp1
         static List<String> GUIDLines = new List<string>();
         static void Main(string[] args)
         {
+            //SearchDupliacteGUID();
+            SeachProductIdInComplicatedFile();
+
+        }
+
+        static void SeachProductIdInComplicatedFile()
+        {
+            SeachEngineConfig config = new SeachEngineConfig()
+            {
+                StartSeachPattern = "Referentienummer Coolblue: ",
+                EndSeachPattern = ";"
+            };
+
+            SeachEngine engine = new SeachEngine(config);
+            Console.WriteLine($"Searching...");
+            IEnumerable<SeachEngineMatch> result = engine.SearchInFile(@"C:\Users\alisson.resenderubim\Desktop\teste.txt");
+
+            foreach(SeachEngineMatch match in result)
+            {
+                Console.WriteLine(match.FoundSetence);
+            }
+            Console.ReadLine();
+
+        }
+
+        static void SearchDupliacteGUID()
+        {
             string startPath = @"C:\Dev\Delphi\Vanessa2\Source\";
 
             SeachEngineConfig config = new SeachEngineConfig()
             {
                 EndSeachPattern = "}']",
-                StartSeachPattern = "['{",
+                StartSeachPattern = "['{"
+            };
+
+            SeachEngineDirectoryConfig directoryConfig = new SeachEngineDirectoryConfig()
+            {
                 FileNamePattern = "*.pas",
-                IgnoreFilesPattern = new string[] { "MSXML2_TLB.pas", "Finance.Payment.Eft.Adyen.COM.pas" },
+                IgnoreFileNamePatterns = new string[] { "MSXML2_TLB.pas", "Finance.Payment.Eft.Adyen.COM.pas" },
                 SearchInSubDirectories = true
             };
 
             SeachEngine engine = new SeachEngine(config);
             Console.WriteLine($"Searching duplicated GUID in {startPath}...");
-            IEnumerable<SeachEngineMatch> result = engine.Search(startPath);
+            IEnumerable<SeachEngineMatch> result = engine.SearchInDirectory(startPath, directoryConfig);
 
-            List<String> duplicateKeys =  result.GroupBy(x => x.FoundSetence).Where(group => group.Count() > 1).Select(group => group.Key).ToList();
+            List<String> duplicateKeys = result.GroupBy(x => x.FoundSetence).Where(group => group.Count() > 1).Select(group => group.Key).ToList();
 
-            if(duplicateKeys.Count == 0)
+            if (duplicateKeys.Count == 0)
             {
                 Console.WriteLine("No duplicated GUID founded!");
             }
             else
             {
-                foreach(string guid in duplicateKeys)
+                foreach (string guid in duplicateKeys)
                 {
                     Console.WriteLine($"{guid} in:");
-                    foreach(SeachEngineMatch match in result)
+                    foreach (SeachEngineMatch match in result)
                     {
                         if (match.FoundSetence == guid)
                             Console.WriteLine($"\t{match.FilePath}");
@@ -45,7 +76,7 @@ namespace ConsoleApp1
                 }
 
                 Console.Write($"[{duplicateKeys.Count}] duplicated GUID founded! Do you want to fix them? [Y/N]:");
-                if(Console.ReadLine().ToUpper().Trim() == "Y")
+                if (Console.ReadLine().ToUpper().Trim() == "Y")
                 {
                     int fixCount = 0;
                     foreach (string guid in duplicateKeys)
@@ -66,7 +97,7 @@ namespace ConsoleApp1
                                     fixCount++;
                                 }
                             }
-                            catch 
+                            catch
                             {
                                 Console.WriteLine($"\tError: Was not possible edit the file {match.FilePath}!!");
                             }
