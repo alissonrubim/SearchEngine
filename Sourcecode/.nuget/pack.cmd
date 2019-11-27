@@ -1,0 +1,1 @@
+nuget.exe pack "..\SearchEngine\SearchEngine.csproj" -Prop Configuration=Release -OutputDirectory "..\..\Published"
