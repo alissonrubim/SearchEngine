@@ -9,7 +9,13 @@ So, one day I decided to create a libary to help with that, and them I did! I pr
 
 ### Using NugetRepository
 Has a better way to share code tham using a repository? I don't think so. Them you can find the SearchEngine in the Nuget and use it.
+Link to the Nuget Gallery:
+https://www.nuget.org/packages/SearchEngine
+
 If you prefer the command line, here it's:
+```powersheel
+Install-Package SearchEngine -Version 1.0.1
+```
 
 ### Importing as .dll
 You can download the release and import the SearchEngine.dll to your project. 
