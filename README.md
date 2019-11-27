@@ -25,3 +25,35 @@ Or, if you prefer, you can insert the file SearchEngine.cs inside your project a
 
 ## How this work?
 Very simple, I must to tell you. 
+
+#### 1. First step is create the SearchEngine object, like this:
+```C#
+ SearchEngine.SearchEngine seachEngine = new SearchEngine.SearchEngine(new SearchEngineConfig()
+{
+    StartSearchPattern = "[assembly: AssemblyVersion(",
+    EndSearchPattern = ")]"
+});
+```
+At SearchEngineConfig, you will set the properties to satisfy your search.
+
+#### 2. Now, you decide if going to serach inside a File or inside a Directory.
+By File:
+```C#
+IEnumerable<SearchEngineMatch> searchResult = seachEngine.SearchInFile("AssemblyInfo.cs");
+```
+By Directory:
+
+#### 3. With the results in hands, we can see some properties that the object SearchEngineMatch have.
+```C#
+result.FilePath; //The file where the match was found it
+result.FoundSetence; //The founded string, the value between StartSearchPattern and EndSearchPattern
+result.FoundSetenceStartIndex; //Where the founded string starts at the file
+result.FoundSetenceEndIndex; //Where the founded string ends at the file
+result.FoundFullSetence; //The full setence founded (StartSearchPattern + FoundSetence + EndSearchPattern)
+result.FoundFullSetenceStartIndex; //Where the full setence starts at the file
+result.FoundFullSetenceEndIndex; //Where the full setence ends at the file
+```
+
+Very easy, hm?
+
+If you need help or want to improve the SearchEngine, please, send me a message. I'll be glade to chat with you.
