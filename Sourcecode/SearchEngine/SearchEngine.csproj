@@ -7,7 +7,7 @@
     <RepositoryUrl>https://github.com/alissonrubim/SearchEngine</RepositoryUrl>
     <Description>A simple engine thats allows you to search a string (or a combination of strings) inside a file or directory.</Description>
     <Copyright>Alisson Rubim</Copyright>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <PackageReleaseNotes>- We are free! Now the SeachEngine it's a library, not a ConsoleApplication. :)</PackageReleaseNotes>
   </PropertyGroup>
 

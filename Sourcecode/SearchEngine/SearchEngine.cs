@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Linq;
 
-namespace ConsoleApp1
+namespace SearchEngine
 {
     public class SeachEngineConfig
     {
