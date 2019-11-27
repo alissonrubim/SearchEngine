@@ -6,20 +6,20 @@ using System.Linq;
 
 namespace SearchEngine
 {
-    public class SeachEngineConfig
+    public class SearchEngineConfig
     {
-        public string StartSeachPattern { get; set; }
-        public string EndSeachPattern { get; set; }
+        public string StartSearchPattern { get; set; }
+        public string EndSearchPattern { get; set; }
     }
 
-    public class SeachEngineDirectoryConfig
+    public class SearchEngineDirectoryConfig
     {
         public string FileNamePattern { get; set; }
         public string[] IgnoreFileNamePatterns { get; set; } = new string[] { };
         public bool SearchInSubDirectories { get; set; }
     }
 
-    public class SeachEngineMatch
+    public class SearchEngineMatch
     {
         public string FoundSetence { get; set; }
         public int FoundSetenceStartIndex { get; set; }
@@ -32,9 +32,7 @@ namespace SearchEngine
 
         public string FilePath { get; set; }
 
-
-
-        public SeachEngineMatch(string FoundSetence, int FoundSetenceStartIndex, int FoundSetenceEndIndex, string FoundFullSetence, int FoundFullSetenceStartIndex, int FoundFullSetenceEndIndex, string FilePath)
+        public SearchEngineMatch(string FoundSetence, int FoundSetenceStartIndex, int FoundSetenceEndIndex, string FoundFullSetence, int FoundFullSetenceStartIndex, int FoundFullSetenceEndIndex, string FilePath)
         {
             this.FoundSetence = FoundSetence;
             this.FoundSetenceStartIndex = FoundSetenceStartIndex;
@@ -46,10 +44,10 @@ namespace SearchEngine
         }
     }
 
-    public class SeachEngine
+    public class SearchEngine
     {
-        private SeachEngineConfig config;
-        public SeachEngineConfig Config
+        private SearchEngineConfig config;
+        public SearchEngineConfig Config
         {
             get
             {
@@ -57,32 +55,32 @@ namespace SearchEngine
             }
         }
 
-        public SeachEngine(SeachEngineConfig config)
+        public SearchEngine(SearchEngineConfig config)
         {
             this.config = config;
         }
 
-        public IEnumerable<SeachEngineMatch> SearchInDirectory(string startPath, SeachEngineDirectoryConfig directoryConfig)
+        public IEnumerable<SearchEngineMatch> SearchInDirectory(string startPath, SearchEngineDirectoryConfig directoryConfig)
         {
             return processDirectory(startPath, directoryConfig);
         }
 
-        public IEnumerable<SeachEngineMatch> SearchInFile(string filePath)
+        public IEnumerable<SearchEngineMatch> SearchInFile(string filePath)
         {
             return processFile(filePath);
         }
 
         #region Private
-        private IEnumerable<SeachEngineMatch> processFile(string path)
+        private IEnumerable<SearchEngineMatch> processFile(string path)
         {
-            List<SeachEngineMatch> matches = new List<SeachEngineMatch>();
+            List<SearchEngineMatch> matches = new List<SearchEngineMatch>();
             string text = File.ReadAllText(path);
 
             int startSearchIndex = 0;
-            int startSearchPatterIndex = text.IndexOf(config.StartSeachPattern, startSearchIndex);
+            int startSearchPatterIndex = text.IndexOf(config.StartSearchPattern, startSearchIndex);
             while (startSearchPatterIndex > -1)
             {
-                int endSearchPatterIndex = text.IndexOf(config.EndSeachPattern, startSearchPatterIndex);
+                int endSearchPatterIndex = text.IndexOf(config.EndSearchPattern, startSearchPatterIndex);
                 if (endSearchPatterIndex < 0 || startSearchPatterIndex > endSearchPatterIndex)
                 {
                     break;
@@ -90,26 +88,26 @@ namespace SearchEngine
                 else
                 {
                     int fullFoundSetenceStartIndex = startSearchPatterIndex;
-                    int fullFoundSetenceEndIndex = endSearchPatterIndex + config.EndSeachPattern.Length;
+                    int fullFoundSetenceEndIndex = endSearchPatterIndex + config.EndSearchPattern.Length;
                     int substringLength = fullFoundSetenceEndIndex - fullFoundSetenceStartIndex;
                     string fullFoundText = text.Substring(fullFoundSetenceStartIndex, substringLength);
 
 
-                    int foundSetenceStartIndex = startSearchPatterIndex + config.StartSeachPattern.Length;
-                    int foundSetenceEndIndex = fullFoundSetenceEndIndex - config.EndSeachPattern.Length;
+                    int foundSetenceStartIndex = startSearchPatterIndex + config.StartSearchPattern.Length;
+                    int foundSetenceEndIndex = fullFoundSetenceEndIndex - config.EndSearchPattern.Length;
                     substringLength = foundSetenceEndIndex - foundSetenceStartIndex;
                     string foundSetence = text.Substring(foundSetenceStartIndex, substringLength);
 
-                    matches.Add(new SeachEngineMatch(foundSetence, foundSetenceStartIndex, foundSetenceEndIndex, fullFoundText, fullFoundSetenceStartIndex, fullFoundSetenceEndIndex, path));
-                    startSearchPatterIndex = text.IndexOf(config.StartSeachPattern, startSearchPatterIndex + 1);
+                    matches.Add(new SearchEngineMatch(foundSetence, foundSetenceStartIndex, foundSetenceEndIndex, fullFoundText, fullFoundSetenceStartIndex, fullFoundSetenceEndIndex, path));
+                    startSearchPatterIndex = text.IndexOf(config.StartSearchPattern, startSearchPatterIndex + 1);
                 }
 
             }
             return matches;
         }
-        private IEnumerable<SeachEngineMatch> processDirectory(string path, SeachEngineDirectoryConfig directoryConfig)
+        private IEnumerable<SearchEngineMatch> processDirectory(string path, SearchEngineDirectoryConfig directoryConfig)
         {
-            List<SeachEngineMatch> matches = new List<SeachEngineMatch>();
+            List<SearchEngineMatch> matches = new List<SearchEngineMatch>();
 
             if (Directory.Exists(path))
             {
