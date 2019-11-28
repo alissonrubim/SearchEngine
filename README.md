@@ -5,7 +5,7 @@ Official website: http://www.alissonrubim.com/projects/searchengine
 In my development life, I always end up doing some string-searching work in files, or even directories, to fix something or find a problem.
 So, one day I decided to create a libary to help with that, and them I did! I prevent to you SearchEngine, a simple library to find patters inside a file or directory.
 
-## Releases, please
+## Releases
 I only release in NugetGallery. You can find the latest versions below.
 
 ![Nuget](https://img.shields.io/nuget/v/searchengine?label=Nuget%20Version&style=flat-square)
