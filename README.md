@@ -1,4 +1,4 @@
-# SearchEngine
+# SearchEngine ![Nuget](https://img.shields.io/nuget/dt/searchengine?color=green&style=flat-square)
 
 Official website: http://www.alissonrubim.com/projects/searchengine
 
