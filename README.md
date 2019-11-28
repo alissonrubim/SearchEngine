@@ -1,6 +1,6 @@
 # SearchEngine
 
-Official website: https://alissonrubim.com/projects/searchengine
+Official website: https://www.alissonrubim.com/projects/searchengine
 
 In my development life, I always end up doing some string-searching work in files, or even directories, to fix something or find a problem.
 So, one day I decided to create a libary to help with that, and them I did! I prevent to you SearchEngine, a simple library to find patters inside a file or directory.
