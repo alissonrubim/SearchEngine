@@ -59,6 +59,7 @@ result.FoundFullSetenceStartIndex; //Where the full setence starts at the file
 result.FoundFullSetenceEndIndex; //Where the full setence ends at the file
 ```
 
-Very easy, hm?
+## Tips? Questions?
+If you need help or want to improve the SearchEngine, please, send me a message. 
+I'll be glade to chat with you.
 
-If you need help or want to improve the SearchEngine, please, send me a message. I'll be glade to chat with you.
